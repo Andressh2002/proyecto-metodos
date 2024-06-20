@@ -1,0 +1,28 @@
+<!-- ({ pointX, pointY, pointCount }) -->
+
+<div class="row mx-auto justify-content-center mb-3">
+    <div class="col-12 col-md-6 mb-3 mb-md-0">
+        <div class="align-items-center">
+            <div class="d-flex align-items-center">
+                <label for="" class="form-label me-2 fw-bold">{{ pointX }}:</label>
+                <!-- <button type="button" name="" id="" class="btn btn-primary rounded-circle fw-bold d-flex justify-content-center align-items-center fs-6 mb-2"  data-bs-toggle="modal" data-bs-target="#mdlEditPoint" data-input-id="{{ pointX }}" data-other-data="x{{ pointCount }}" style="width: 26px; height: 26px;">
+                    <i class="bi bi-pencil-square"></i>
+                </button> -->
+            </div>
+            <input type="text" class="form-control focus-ring focus-ring-warning border border-secondary"
+                name="" id="x{{ pointCount }}" aria-describedby="" placeholder="" />
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="align-items-center">
+            <div class="d-flex align-items-center">
+                <label for="" class="form-label me-2 fw-bold">{{ pointY }}:</label>
+                <!-- <button type="button" name="" id="" class="btn btn-primary rounded-circle fw-bold d-flex justify-content-center align-items-center fs-6 mb-2"  data-bs-toggle="modal" data-bs-target="#mdlEditPoint" data-input-id="{{ pointY }}" data-other-data="y{{ pointCount }}" style="width: 26px; height: 26px;">
+                    <i class="bi bi-pencil-square"></i>
+                </button> -->
+            </div>
+            <input type="text" class="form-control focus-ring focus-ring-warning border border-secondary"
+                name="" id="y{{ pointCount }}" aria-describedby="" placeholder="" />
+        </div>
+    </div>
+</div>

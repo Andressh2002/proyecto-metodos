@@ -1,0 +1,38 @@
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="row mt-4">
+            <div class="col-12 col-md-auto mb-4">
+                <div class="d-grid gap-2">
+                    <button type="button" name="" id="addBtn" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#mdlAddPoint">
+                        <i class="bi bi-plus me-2"></i>Agregar
+                    </button>
+                    <button type="button" name="" id="removeBtn" class="btn btn-danger" onclick="removeLastPoint()">
+                        <i class="bi bi-dash me-2"></i>Eliminar
+                    </button>
+                    <button type="button" name="" id="restedBtn" class="btn btn-primary" onclick="resetToTwoPoints()">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Reiniciar
+                    </button>
+                    <select class="form-select form-select-md bg-primary text-bg-primary" name="" id="spline_type"
+                        name="spline_type">
+                        <option value="" selected disabled>Tipo...</option>
+                        <option value="linear">Lineal</option>
+                        <option value="quadratic">Cuadrática</option>
+                        <option value="cubic">Cúbica</option>
+                    </select>
+                    <button type="button" name="" id="calculateBtn" class="btn btn-primary" onclick="calculate_spline('linear')">
+                    <i class="bi bi-calculator me-2"></i>Calcular
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-12 col-md" id="pointsContainer">
+                {% include 'components/forms/point.html' with pointX='X1' pointY='Y1' pointCount='1' %}
+                {% include 'components/forms/point.html' with pointX='X2' pointY='Y2' pointCount='2' %}
+            </div>
+
+        </div>
+    </form>
+    
+</div>

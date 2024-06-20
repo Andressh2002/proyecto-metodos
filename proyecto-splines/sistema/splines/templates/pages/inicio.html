@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+
+    <div class="card bg-light mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Formulario para calcular Splines</h4>
+            <p class="card-text">Puede agregar más puntos en caso de que lo requiera</p>
+            {% include 'components/sections/form.html' %}
+        </div>
+    </div>
+
+    <div class="card bg-light mt-4">
+        <div class="card-body">
+            <p class="card-text">Solución</p>
+            {% include 'components/sections/response.html' %}
+        </div>
+    </div>
+    
+    <!-- Modal para agregar punto -->
+    {% include 'components/modals/modal.html' with modalId='mdlAddPoint' modalTitle='Agregar punto' modalText='Escriba un nombre para las coordenadas' modalBtnAccept='Agregar' func='addPoint()' form='components/forms/formAdd.html' %}
+    <!-- Modal para actualizar una coordenada -->
+    {% include 'components/modals/modal.html' with modalId='mdlEditPoint' modalTitle='Cambiar nombre' modalText='Escriba el nuevo nombre para esta coordenada' modalBtnAccept='Actualizar' func='editName()' form='components/forms/formEdit.html' %}
+
+    <script type="text/template" id="point-template">
+        {% include 'components/forms/point.html' with pointX='{{ pointX }}' pointY='{{ pointY }}' pointCount='{{ pointCount }}' %}
+    </script>
+
+{% endblock %}

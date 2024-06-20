@@ -1,0 +1,26 @@
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-inputs-tab" data-bs-toggle="tab" data-bs-target="#nav-inputs" type="button"
+            role="tab" aria-controls="nav-inputs" aria-selected="true">Datos de entrada</button>
+        <button class="nav-link" id="nav-steps-tab" data-bs-toggle="tab" data-bs-target="#nav-steps" type="button"
+            role="tab" aria-controls="nav-steps" aria-selected="false">Respuesta</button>
+        <button class="nav-link" id="nav-grafics-tab" data-bs-toggle="tab" data-bs-target="#nav-grafics" type="button"
+            role="tab" aria-controls="nav-grafics" aria-selected="false">Gráfica</button>
+        <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
+            role="tab" aria-controls="nav-all" aria-selected="false">Todo</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-inputs" role="tabpanel" aria-labelledby="nav-inputs-tab">
+        {% include 'components/responseInputs.html' %}
+    </div>
+    <div class="tab-pane fade" id="nav-steps" role="tabpanel" aria-labelledby="nav-steps-tab">
+        {% include 'components/responseSteps.html' %}
+    </div>
+    <div class="tab-pane fade" id="nav-grafics" role="tabpanel" aria-labelledby="nav-grafics-tab">
+        {% include 'components/responseGrafics.html' %}
+    </div>
+    <div class="tab-pane fade" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+        {% include 'components/responseAll.html' %}
+    </div>
+</div>
