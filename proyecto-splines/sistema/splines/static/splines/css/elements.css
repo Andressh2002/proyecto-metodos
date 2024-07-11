@@ -1,0 +1,124 @@
+.personalized-header {
+    background: #1d4ed8;
+    color: #F5F5F5;
+    border-bottom: #f59e0b 4px solid;
+}
+
+.personalized-nav {
+    background: #27272a;
+    color: #f4f4f5;
+}
+
+.personalized-nav-item {
+    color: #f4f4f5;
+    transition: 0.1s all;
+}
+
+.personalized-nav-item:hover {
+    color: #f4f4f5;
+    background: #52525b;
+}
+
+.personalized-nav-item:active {
+    color: #f4f4f5;
+    background: #3f3f46;
+}
+
+.personalized-nav-dropdown {
+    background: #E0E0E0;
+    border: #A0A0A0 solid 2px;
+    color: #212121;
+}
+
+.personalized-nav-item-dropdown {
+    background: #E0E0E0;
+    color: #212121;
+    transition: 0.1s all;
+}
+
+.personalized-nav-item-dropdown:hover {
+    background: #C0C0C0;
+    color: #212121;
+    font-weight: 500;
+}
+
+.personalized-nav-item-dropdown:active {
+    background: #A0A0A0;
+    color: #212121;
+    font-weight: 500;
+}
+
+.personalized-body {
+    background: #e4e4e7;
+    background-image: url('../img/texture_background.png');
+    background-repeat: repeat;
+    color: #212121;
+}
+
+.personalized-card {
+    background: #FFFFFF;
+    border: #E0E0E0 solid 2px;
+    color: #212121;
+}
+
+.personalized-section-opctions {
+    background: #F5F5F5;
+    border: #E0E0E0 solid 2px;
+    color: #212121;
+}
+
+.personalized-button {
+    background: #2563eb;
+    border: solid 0px;
+    color: #F5F5F5;
+    border-radius: 0px;
+    transition: 0.1s all;
+}
+
+.personalized-button:hover {
+    background: #1d4ed8;
+    color: #FFFFFF;
+    border: solid 0px;
+}
+
+.personalized-button:active {
+    background: #1e40af;
+    color: #FFFFFF;
+    border: solid 0px;
+}
+
+.personalized-button-disabled {
+    background: #1e40af;
+    border: solid 0px;
+    color: #F5F5F5;
+    border-radius: 0px;
+    transition: 0.1s all;
+}
+
+.personalized-textbox {
+    background: #FFFFFF;
+    color: #27272a;
+}
+
+.personalized-button-details {
+    background: #f59e0b;
+    border: solid 0px;
+    color: #FFFFFF;
+    transition: 0.1s all;
+}
+
+.personalized-button-details:hover {
+    background: #d97706;
+    color: #FFFFFF;
+    border: solid 0px;
+}
+
+.personalized-button-details:active {
+    background: #b45309;
+    color: #FFFFFF;
+    border: solid 0px;
+}
+
+.text-blue {
+    color: #1e3a8a;
+}

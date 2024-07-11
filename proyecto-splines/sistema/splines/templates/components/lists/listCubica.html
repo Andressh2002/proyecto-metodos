@@ -1,0 +1,28 @@
+<li class="list-group-item px-0"><span class="fw-medium">Segmento {{ segmento }}</span>
+    <div class="card personalized-card p-1 my-2">
+        <div class="card-body">
+            <p class="card-text">Pendiente inicial = <span class="text-blue">{{ pendiente_inicial }}</span></p>
+            <p class="card-text">Pendiente final = <span class="text-blue">{{ pendiente_final }}</span></p>
+            <p class="card-text">a = <span class="text-blue">{{ a }}</span></p>
+            <p class="card-text">b = <span class="text-blue">{{ b }}</span></p>
+            <p class="card-text">c = <span class="text-blue">{{ c }}</span></p>
+            <p class="card-text">d = <span class="text-blue">{{ d }}</span></p>
+            <p class="card-text">Ecuación = <span class="text-blue">{{ ecuacion }}</span></p>
+            {% include 'components/inputs/button.html' with id='detailsBtn' classBtn='py-2 py-1 personalized-button-details rounded-1' classI='bi bi-list me-2' text='Detalles' segmento='{{segmento}}' %}
+            <div class="accordion" id="accordionExample{{ segmento }}">
+                <div class="accordion-item border-0">
+                    <div id="collapseOne{{ segmento }}" class="accordion-collapse collapse"
+                        aria-labelledby="headingOne" data-bs-parent="#accordionExample{{ segmento }}">
+                        <div class="accordion-body px-0 pb-0">
+                            <p>Puntos utilizados: <span class="text-blue">({{ x1 }}, {{ y1 }}), ({{ x2 }}, {{ y2 }})</span></p>
+                            <p>Cálculo de a: <span class="text-blue">{{ calculo_a }}</span></p>
+                            <p>Cálculo de b: <span class="text-blue">{{ calculo_b }}</span></p>
+                            <p>Cálculo de c: <span class="text-blue">{{ calculo_c }}</span></p>
+                            <p>Cálculo de d: <span class="text-blue">{{ calculo_d }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

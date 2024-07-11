@@ -13,6 +13,12 @@ html, body {
     flex-shrink: 0;
 }
 
+#graph-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Estilo de la scrollbar */
 ::-webkit-scrollbar {
     width: 16px; /* Ancho de la scrollbar */
@@ -21,7 +27,7 @@ html, body {
 
 /* Estilo de la parte de la scrollbar que se desplaza */
 ::-webkit-scrollbar-thumb {
-    background-color: #007bff; /* Color de la scrollbar */
+    background-color: #1d4ed8; /* Color de la scrollbar */
     border-radius: 10px; /* Bordes redondeados */
     border: 3px solid #ffffff; /* Bordes alrededor de la scrollbar */
 }

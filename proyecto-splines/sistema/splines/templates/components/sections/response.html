@@ -1,26 +1,30 @@
-<nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-inputs-tab" data-bs-toggle="tab" data-bs-target="#nav-inputs" type="button"
-            role="tab" aria-controls="nav-inputs" aria-selected="true">Datos de entrada</button>
-        <button class="nav-link" id="nav-steps-tab" data-bs-toggle="tab" data-bs-target="#nav-steps" type="button"
-            role="tab" aria-controls="nav-steps" aria-selected="false">Respuesta</button>
-        <button class="nav-link" id="nav-grafics-tab" data-bs-toggle="tab" data-bs-target="#nav-grafics" type="button"
-            role="tab" aria-controls="nav-grafics" aria-selected="false">Gráfica</button>
-        <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
-            role="tab" aria-controls="nav-all" aria-selected="false">Todo</button>
+<div class="container pt-2 mt-4 mx-0 px-0">
+    <div class="w-100 d-none" id="data-container">
+        <div class="row mb-4">
+            <div class="col-12" id="data-section">
+                <h5 class="card-title">Datos de entrada</h5>
+                <table class="table table-bordered table-responsive m-0" id="data-list"></table>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12" id="steps-section">
+                <h5 class="card-title">Pasos del cálculo</h5>
+                <ul class="card-text list-group list-group-flush" id="steps-list"></ul>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <h5 class="card-title">Gráfica</h5>
+                <div id="graph-section">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-inputs" role="tabpanel" aria-labelledby="nav-inputs-tab">
-        {% include 'components/responseInputs.html' %}
+    <div class="w-100 d-none" id="data-loading">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
     </div>
-    <div class="tab-pane fade" id="nav-steps" role="tabpanel" aria-labelledby="nav-steps-tab">
-        {% include 'components/responseSteps.html' %}
-    </div>
-    <div class="tab-pane fade" id="nav-grafics" role="tabpanel" aria-labelledby="nav-grafics-tab">
-        {% include 'components/responseGrafics.html' %}
-    </div>
-    <div class="tab-pane fade" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-        {% include 'components/responseAll.html' %}
-    </div>
+
 </div>

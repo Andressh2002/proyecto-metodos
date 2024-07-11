@@ -1,0 +1,22 @@
+<li class="list-group-item px-0"><span class="fw-medium">Segmento {{ segmento }}</span>
+    <div class="card personalized-card p-1 my-2">
+        <div class="card-body">
+            <p class="card-text">Pendiente = <span class="text-blue">{{ pendiente }}</span></p>
+            <p class="card-text">Intersección = <span class="text-blue">{{ interseccion }}</span></p>
+            <p class="card-text">Ecuación = <span class="text-blue">{{ ecuacion }}</span></p>
+            {% include 'components/inputs/button.html' with id='detailsBtn' classBtn='py-2 py-1 personalized-button-details rounded-1' classI='bi bi-list me-2' text='Detalles' segmento='{{segmento}}' %}
+            <div class="accordion" id="accordionExample{{ segmento }}">
+                <div class="accordion-item border-0">
+                    <div id="collapseOne{{ segmento }}" class="accordion-collapse collapse"
+                        aria-labelledby="headingOne" data-bs-parent="#accordionExample{{ segmento }}">
+                        <div class="accordion-body px-0 pb-0">
+                            <p>Puntos utilizados: <span class="text-blue">({{ x1 }}, {{ y1 }}), ({{ x2 }}, {{ y2 }})</span></p>
+                            <p>Cálculo de la pendiente: <span class="text-blue">{{ calculoPendiente }}</span></p>
+                            <p>Cálculo de la intersección: <span class="text-blue">{{ calculoInterseccion }}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

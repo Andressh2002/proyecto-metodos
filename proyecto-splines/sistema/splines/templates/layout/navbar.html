@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm personalized-nav">
     <div class="container">
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
             data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -8,17 +8,17 @@
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link focus-ring focus-ring-warning active" href="{% url 'inicio' %}" aria-current="page">Inicio</a>
+                    <a class="nav-link personalized-nav-item" href="{% url 'inicio' %}" aria-current="page">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link focus-ring focus-ring-warning" href="{% url 'manual' %}">Manual</a>
+                    <a class="nav-link personalized-nav-item" href="{% url 'manual' %}">Manual</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle focus-ring focus-ring-warning" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">Información</a>
-                    <div class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownId">
-                        <a class="dropdown-item" href="{% url 'splines' %}">Splines</a>
-                        <a class="dropdown-item" href="{% url 'aplicacion' %}">Aplicación web</a>
+                    <a class="nav-link dropdown-toggle personalized-nav-item" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" style="color: #f4f4f5">Información</a>
+                    <div class="dropdown-menu personalized-nav-dropdown" aria-labelledby="dropdownId">
+                        <a class="dropdown-item personalized-nav-item-dropdown" href="{% url 'splines' %}">Splines</a>
+                        <a class="dropdown-item personalized-nav-item-dropdown" href="{% url 'aplicacion' %}">Aplicación web</a>
                     </div>
                 </li>
             </ul>

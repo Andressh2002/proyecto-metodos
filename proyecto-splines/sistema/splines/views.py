@@ -6,7 +6,6 @@ import numpy as np
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 import io
-import urllib, base64
 import base64
 import urllib.parse
 from django.http import HttpResponseBadRequest
@@ -26,83 +25,13 @@ def aplicacion(request):
     return render(request, 'pages/aplicacion.html')
 
 # Métodos matemáticos.
-""" def calculate(request):
-    if request.method == 'POST':
-        return JsonResponse(validar(request))
-    else:
-        return JsonResponse({'error': 'Invalid request method'}, status=400) """
-
-""" def calculate_spline(request):
-    if request.method == "POST":
-        x_points = request.POST.get('x', 'No data received')
-        y_points = request.POST.get('y', 'No data received')
-        spline_type = request.POST.get("spline_type", 'No data received')
-        
-        try:
-            x = [float(xi) for xi in x_points.split(',')]
-            y = [float(yi) for yi in y_points.split(',')]
-        except ValueError as e:
-            return HttpResponseBadRequest(f"Error al convertir los puntos a números: {e}")
-
-        if len(x) != len(y):
-            return HttpResponseBadRequest("La cantidad de puntos x y y no coincide.")
-
-        x = np.array(x)
-        y = np.array(y)
-
-        steps = []
-
-        if spline_type == 'linear':
-            steps.append("Tipo de spline: Lineal")
-            slopes = []
-            intercepts = []
-            for i in range(len(x) - 1):
-                slope = (y[i+1] - y[i]) / (x[i+1] - x[i])
-                intercept = y[i] - slope * x[i]
-                slopes.append(slope)
-                intercepts.append(intercept)
-                steps.append(f"Segmento {i+1}: Pendiente = {slope:.2f}, Intersección = {intercept:.2f}, Ecuación: y = {slope:.2f}x + {intercept:.2f}")
-
-            spline = interp1d(x, y, kind='linear')
-        
-        elif spline_type == 'quadratic':
-            steps.append("Tipo de spline: Cuadrático")
-            spline = interp1d(x, y, kind='quadratic')
-            steps.append("Cálculo del spline cuadrático completado.")
-        
-        elif spline_type == 'cubic':
-            steps.append("Tipo de spline: Cúbico")
-            spline = interp1d(x, y, kind='cubic')
-            steps.append("Cálculo del spline cúbico completado.")
-        else:
-            return HttpResponseBadRequest(f"Tipo de spline no reconocido: {spline_type}")
-
-        x_nuevos = np.linspace(min(x), max(x), 500)
-        y_nuevos = spline(x_nuevos)
-
-        plt.figure(figsize=(10, 6))
-        plt.scatter(x, y, label='Datos originales')
-        plt.plot(x_nuevos, y_nuevos, label=f'Spline {spline_type}', color='red')
-        plt.legend()
-        plt.xlabel('x')
-        plt.ylabel('y')
-        plt.title(f'Spline {spline_type.capitalize()}')
-
-        buf = io.BytesIO()
-        plt.savefig(buf, format='png')
-        buf.seek(0)
-        string = base64.b64encode(buf.read())
-        uri = urllib.parse.quote(string)
-        return render(request, 'components/responseAll.html', {'plot_url': 'data:image/png;base64,' + uri, 'steps': steps})
-
-    return render(request, 'components/responseAll.html') """
 
 @csrf_exempt
 def calculate_spline(request):
     if request.method == 'POST':
         x_points = request.POST.get('x', 'No data received')
         y_points = request.POST.get('y', 'No data received')
-        spline_type = request.POST.get('spline_type', 'linear')
+        spline_type = request.POST.get('spline_type', 'quadratic')
 
         try:
             x = [float(xi) for xi in x_points.split(',')]
@@ -117,16 +46,16 @@ def calculate_spline(request):
 
             # Calcular el spline según el tipo especificado
             if spline_type == 'linear':
-                steps, plot_url = calculate_linear_spline(x, y)
+                steps = calculate_linear_spline(x, y)
             elif spline_type == 'quadratic':
-                steps, plot_url = calculate_quadratic_spline(x, y)
+                steps = calculate_quadratic_spline(x, y)
             elif spline_type == 'cubic':
-                steps, plot_url = calculate_cubic_spline(x, y)
+                steps = calculate_cubic_spline(x, y)
             else:
                 return HttpResponseBadRequest(f'Tipo de spline no válido: {spline_type}')
 
             # Devolver la respuesta como JSON
-            return JsonResponse({'steps': steps, 'plot_url': plot_url})
+            return JsonResponse({'steps': steps})
 
         except ValueError as e:
             return JsonResponse({'error': str(e)})
@@ -141,89 +70,146 @@ def calculate_linear_spline(x, y):
     intercepts = []
 
     for i in range(len(x) - 1):
-        slope = (y[i+1] - y[i]) / (x[i+1] - x[i])
-        intercept = y[i] - slope * x[i]
+        x1, x2 = x[i], x[i+1]
+        y1, y2 = y[i], y[i+1]
+
+        slope = (y2 - y1) / (x2 - x1)
+        intercept = y1 - slope * x1
+
         slopes.append(slope)
         intercepts.append(intercept)
-        steps.append({
+
+        step_detail = {
             'segmento': i + 1,
             'pendiente': slope,
             'interseccion': intercept,
-            'ecuacion': f'y = {slope:.2f}x + {intercept:.2f}'
-        })
+            'ecuacion': f'y = {slope:.2f}x + {intercept:.2f}',
+            'detalles': {
+                'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
+                'calculo_pendiente': f'({y2} - {y1}) / ({x2} - {x1}) = {slope:.2f}',
+                'calculo_interseccion': f'{y1} - ({slope:.2f} * {x1}) = {intercept:.2f}'
+            }
+        }
 
-    # Generar gráfico
-    x_new = np.linspace(min(x), max(x), 500)
-    spline = interp1d(x, y, kind='linear')
-    y_new = spline(x_new)
+        steps.append(step_detail)
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(x, y, label='Datos originales')
-    plt.plot(x_new, y_new, label='Spline Lineal', color='red')
-    plt.legend()
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Spline Lineal')
-
-    # Convertir la imagen a base64
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plot_url = base64.b64encode(buf.read()).decode('utf-8')
-    plt.close()
-
-    return steps, plot_url
+    return steps
 
 
 def calculate_quadratic_spline(x, y):
-    # Calcular el spline cuadrático
-    steps = ["Cálculo del spline cuadrático:"]
-    spline = interp1d(x, y, kind='quadratic')
+    x = np.array(x)
+    y = np.array(y)
+    
+    n = len(x) - 1
+    h = np.diff(x)
+    
+    # Matriz A y vector b para resolver los coeficientes c
+    A = np.zeros((n+1, n+1))
+    b = np.zeros(n+1)
+    
+    A[0, 0] = 1
+    A[-1, -1] = 1
+    for i in range(1, n):
+        A[i, i-1] = h[i-1]
+        A[i, i] = 2 * (h[i-1] + h[i])
+        A[i, i+1] = h[i]
+        b[i] = 3 * ((y[i+1] - y[i]) / h[i] - (y[i] - y[i-1]) / h[i-1])
+    
+    # Resolver para c
+    c = np.linalg.solve(A, b)
+    
+    # Calcular coeficientes a y b
+    a = y[:-1]
+    b = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
 
-    # Generar gráfico
-    x_new = np.linspace(min(x), max(x), 500)
-    y_new = spline(x_new)
+    steps = []
+    for i in range(n):
+        x1, x2 = x[i], x[i+1]
+        y1, y2 = y[i], y[i+1]
+        
+        a_i = a[i]
+        b_i = b[i]
+        c_i = c[i]
+        
+        step_detail = {
+            'segmento': i + 1,
+            'a': a_i,
+            'b': b_i,
+            'c': c_i,
+            'ecuacion': f'y = {a_i:.2f} + {b_i:.2f}(x - {x1:.2f}) + {c_i:.2f}(x - {x1:.2f})^2',
+            'pendiente_inicial': f'{b_i:.2f}',  # Pendiente en x1
+            'pendiente_final': f'{(b_i + 2*c_i*(x2 - x1)):.2f}',  # Pendiente en x2
+            'detalles': {
+                'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
+                'calculo_a': f'{a_i:.2f}',
+                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) = {b_i:.2f}',
+                'calculo_c': f'{c_i:.2f}'
+            }
+        }
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(x, y, label='Datos originales')
-    plt.plot(x_new, y_new, label='Spline Cuadrático', color='red')
-    plt.legend()
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Spline Cuadrático')
+        steps.append(step_detail)
 
-    # Convertir la imagen a base64
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plot_url = base64.b64encode(buf.read()).decode('utf-8')
-    plt.close()
-
-    return steps, plot_url
+    return steps
 
 
 def calculate_cubic_spline(x, y):
-    # Calcular el spline cúbico
-    steps = ["Cálculo del spline cúbico:"]
-    spline = interp1d(x, y, kind='cubic')
+    x = np.array(x)
+    y = np.array(y)
+    
+    n = len(x) - 1
+    h = np.diff(x)
+    
+    # Matriz A y vector b para resolver los coeficientes c
+    A = np.zeros((n+1, n+1))
+    b = np.zeros(n+1)
+    
+    A[0, 0] = 1
+    A[-1, -1] = 1
+    for i in range(1, n):
+        A[i, i-1] = h[i-1]
+        A[i, i] = 2 * (h[i-1] + h[i])
+        A[i, i+1] = h[i]
+        b[i] = 3 * ((y[i+1] - y[i]) / h[i] - (y[i] - y[i-1]) / h[i-1])
+    
+    # Resolver para c
+    c = np.linalg.solve(A, b)
+    
+    # Calcular coeficientes a, b, y d
+    a = y[:-1]
+    b = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
+    d = (c[1:] - c[:-1]) / (3 * h)
 
-    # Generar gráfico
-    x_new = np.linspace(min(x), max(x), 500)
-    y_new = spline(x_new)
+    steps = []
+    for i in range(n):
+        x1, x2 = x[i], x[i+1]
+        y1, y2 = y[i], y[i+1]
+        
+        a_i = a[i]
+        b_i = b[i]
+        c_i = c[i]
+        d_i = d[i] if i < n-1 else 0  # Manejar el último valor de d
+        
+        pendiente_inicial = b_i
+        pendiente_final = b_i + 2 * c_i * (x2 - x1) + 3 * d_i * (x2 - x1)**2
+        
+        step_detail = {
+            'segmento': i + 1,
+            'a': a_i,
+            'b': b_i,
+            'c': c_i,
+            'd': d_i,
+            'ecuacion': f'y = {a_i:.2f} + {b_i:.2f}(x - {x1:.2f}) + {c_i:.2f}(x - {x1:.2f})^2 + {d_i:.2f}(x - {x1:.2f})^3',
+            'pendiente_inicial': pendiente_inicial,
+            'pendiente_final': pendiente_final,
+            'detalles': {
+                'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
+                'calculo_a': f'{a_i:.2f}',
+                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) = {b_i:.2f}',
+                'calculo_c': f'c[{i}] = {c_i:.2f}',
+                'calculo_d': f'(c[{i+1}] - c[{i}]) / (3 * h) = {d_i:.2f}'
+            }
+        }
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(x, y, label='Datos originales')
-    plt.plot(x_new, y_new, label='Spline Cúbico', color='red')
-    plt.legend()
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.title('Spline Cúbico')
+        steps.append(step_detail)
 
-    # Convertir la imagen a base64
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plot_url = base64.b64encode(buf.read()).decode('utf-8')
-    plt.close()
-
-    return steps, plot_url
+    return steps
