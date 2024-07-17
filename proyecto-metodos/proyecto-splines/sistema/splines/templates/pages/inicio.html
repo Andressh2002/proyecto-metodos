@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block titulo %} Inicio {% endblock %}
+
+{% block contenido %}
+
+    <div class="card personalized-card mt-4 p-2">
+        <div class="card-body">
+            <h4 class="card-title">Ingreso de datos</h4>
+            <p class="card-text">Agregue los datos en el panel de 'Datos' y utilize el panel de 'Opciones' para manejar los datos.</p>
+            {% include 'components/sections/form.html' %}
+        </div>
+    </div>
+
+    <div class="card personalized-card mt-4 p-2">
+        <div class="card-body">
+            <h4 class="card-text">Solución</h4>
+            <p class="card-text">Aquí se mostrará el resultado del cálculo.</p>
+            {% include 'components/sections/response.html' %}
+        </div>
+    </div>
+    
+    <!-- Modal para agregar punto -->
+    {% include 'components/modals/modal.html' with modalId='mdlAddPoint' modalTitle='Agregar punto' modalText='Escriba un nombre para las coordenadas' modalBtnAccept='Agregar' func='addPoint()' form='components/forms/formAdd.html' %}
+    <!-- Modal para actualizar una coordenada -->
+    {% include 'components/modals/modal.html' with modalId='mdlEditPoint' modalTitle='Cambiar nombre' modalText='Escriba el nuevo nombre para esta coordenada' modalBtnAccept='Actualizar' func='editName()' form='components/forms/formEdit.html' %}
+
+    <script type="text/template" id="point-template">
+        {% include 'components/forms/point.html' with pointX='{{ pointX }}' pointY='{{ pointY }}' pointCount='{{ pointCount }}' %}
+    </script>
+
+    <script type="text/template" id="listLineal-template">
+        {% include 'components/lists/listLineal.html' with segmento='{{ segmento }}' pendiente='{{ pendiente }}' interseccion='{{ interseccion }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculoPendiente='{{ calculoPendiente }}' calculoInterseccion='{{ calculoInterseccion }}' %}
+    </script>
+
+    <script type="text/template" id="listCuadratica-template">
+        {% include 'components/lists/listCuadratica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' derivada_inicial='{{derivada_inicial}}' derivada_final='{{derivada_final}}' pendiente_inicial_detalle='{{pendiente_inicial_detalle}}' pendiente_final_detalle='{{pendiente_final_detalle}}' derivada_inicial_detalle='{{derivada_inicial_detalle}}' derivada_final_detalle='{{derivada_final_detalle}}' %}
+    </script>
+
+    <script type="text/template" id="listCubica-template">
+        {% include 'components/lists/listCubica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' d='{{ d }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' calculo_d='{{ calculo_d }}' derivada_inicial='{{derivada_inicial}}' derivada_final='{{derivada_final}}' pendiente_inicial_detalle='{{pendiente_inicial_detalle}}' pendiente_final_detalle='{{pendiente_final_detalle}}' derivada_inicial_detalle='{{derivada_inicial_detalle}}' derivada_final_detalle='{{derivada_final_detalle}}' %}
+    </script>
+
+{% endblock %}

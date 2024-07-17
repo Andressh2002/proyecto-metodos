@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-12 col-md-auto mb-4">
+            <div class="rounded personalized-section-opctions pt-3">
+                <h5 class="mx-3 mb-3">Opciones</h5>
+                <div class="d-grid">
+                    {% include 'components/inputs/button.html' with id='addBtn' classBtn='w-100 py-3 btn btn-primary personalized-button' classI='bi bi-plus me-2' text='Agregar' method='addPoint()' %}
+                    {% include 'components/inputs/button.html' with id='removeBtn' classBtn='w-100 py-3 btn btn-primary personalized-button' classI='bi bi-dash me-2' text='Eliminar' method='removeLastPoint()' %}
+                    {% include 'components/inputs/button.html' with id='restedBtn' classBtn='w-100 py-3 btn btn-primary personalized-button' classI='bi bi-arrow-clockwise me-2' text='Reiniciar' method='resetToTwoPoints()' %}
+                    {% include 'components/inputs/select.html' with id='spline_type' classSlt='w-100 py-3 btn btn-primary personalized-button text-start' method="updateCalcButtonState()" %}
+                    {% include 'components/inputs/button.html' with id='calculateBtn' classBtn='w-100 py-3 btn btn-primary rounded-bottom  personalized-button' classI='bi bi-calculator me-2' text='Calcular' method='calculate_spline()' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md">
+            <div class="rounded personalized-section-opctions p-3" id="pointsContainer">
+                <h5>Datos</h5>
+                <div class="row mx-auto justify-content-center">
+                    <div class="col-12 col-md-6 mb-md-0">
+                        <div class="align-items-center">
+                            <label for="" class="form-label me-2 fw-bold">Horas del día</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 mb-md-0">
+                        <div class="align-items-center">
+                            <label for="" class="form-label me-2 fw-bold">Consumo eléctrico (kwh)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

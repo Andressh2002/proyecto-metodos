@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+}
+.d-flex-column {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.flex-fill {
+    flex: 1 0 auto;
+}
+.footer {
+    flex-shrink: 0;
+}
+
+#graph-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo de la scrollbar */
+::-webkit-scrollbar {
+    width: 16px; /* Ancho de la scrollbar */
+    height: 16px; /* Alto de la scrollbar */
+}
+
+/* Estilo de la parte de la scrollbar que se desplaza */
+::-webkit-scrollbar-thumb {
+    background-color: #1d4ed8; /* Color de la scrollbar */
+    border-radius: 10px; /* Bordes redondeados */
+    border: 3px solid #ffffff; /* Bordes alrededor de la scrollbar */
+}
+
+/* Estilo de la pista de la scrollbar */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Color de fondo de la pista */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo de la pista de la scrollbar cuando está activa */
+::-webkit-scrollbar-track:hover {
+    background-color: #e0e0e0; /* Color de fondo de la pista cuando se pasa el ratón por encima */
+}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block titulo %} Splines {% endblock %}
+
+{% block contenido %}
+
+    <div class="card bg-light mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Métodos de splines</h4>
+            <p class="card-text">Aquí se muestra los conceptos y descripción de cada uno de los métodos de los splines</p>
+            
+        </div>
+    </div>
+
+    <div class="card bg-light mt-4">
+        <div class="card-body">
+            <h5 class="card-title">¿Qué es un spline?</h5>
+            {% include 'components/information/spline.html' %}
+            <h5 class="card-title">Spline lineal</h5>
+            {% include 'components/information/LinealSpline.html' %}
+            <h5 class="card-title">Spline Cuadrático</h5>
+            {% include 'components/information/QuadraticSpline.html' %}
+            <h5 class="card-title">Spline Cúbico</h5>
+            {% include 'components/information/cubicSpline.html' %}
+        </div>
+    </div>
+
+    <div class="card bg-light mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Referencias bibliográficas</h4>
+            {% include 'components/information/bibliografic.html' %}
+        </div>
+    </div>
+
+{% endblock %}
