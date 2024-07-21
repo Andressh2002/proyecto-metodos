@@ -109,7 +109,7 @@ def calculate_quadratic_spline(x, y):
     
     A[0, 0] = 1
     A[-1, -1] = 1
-    for i in range(1, n):
+    for i in range(1, n):#cambiar a 1
         A[i, i-1] = h[i-1]
         A[i, i] = 2 * (h[i-1] + h[i])
         A[i, i+1] = h[i]
@@ -120,37 +120,57 @@ def calculate_quadratic_spline(x, y):
     
     # Calcular coeficientes a y b
     a = y[:-1]
-    b = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
+    b_coeff = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
 
     steps = []
     for i in range(n):
         x1, x2 = x[i], x[i+1]
         y1, y2 = y[i], y[i+1]
+        h_i = h[i]
+        c_i = c[i]
+        c_next = c[i+1]
         
         a_i = a[i]
-        b_i = b[i]
-        c_i = c[i]
+        b_i = b_coeff[i]
         
+        # Calculo de pendientes
+        pendiente_inicial = b_i
+        pendiente_final = b_i + 2 * c_i * (x2 - x1)
+        
+        # Calculo de derivadas
+        derivada_inicial = pendiente_inicial
+        derivada_final = pendiente_final
+        
+        # Ecuaciones de las derivadas
+        derivada_inicial_eq = f"dy/dx = {b_i:.2f}"
+        derivada_final_eq = f"dy/dx = {b_i:.2f} + 2*{c_i:.2f}*(x - {x1:.2f}) = {derivada_final:.2f}"
+        
+        # Detalles del cálculo paso a paso
         step_detail = {
             'segmento': i + 1,
             'a': a_i,
             'b': b_i,
             'c': c_i,
             'ecuacion': f'y = {a_i:.2f} + {b_i:.2f}(x - {x1:.2f}) + {c_i:.2f}(x - {x1:.2f})^2',
-            'pendiente_inicial': f'{b_i:.2f}',  # Pendiente en x1
-            'pendiente_final': f'{(b_i + 2*c_i*(x2 - x1)):.2f}',  # Pendiente en x2
+            'pendiente_inicial': pendiente_inicial,
+            'pendiente_final': pendiente_final,
+            'derivada_inicial': derivada_inicial_eq,
+            'derivada_final': derivada_final_eq,
             'detalles': {
                 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
-                'calculo_a': f'{a_i:.2f}',
-                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) = {b_i:.2f}',
-                'calculo_c': f'{c_i:.2f}'
+                'calculo_a': f'y1 = {y1:.2f}',
+                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) - ({h_i:.2f} * (2 * {c_i:.2f} + {c_next:.2f}) / 3) = {b_i:.2f}',
+                'calculo_c': f'({y2:.2f} - {y1:.2f}) / {h_i:.2f} - {h_i:.2f} * (2 * {c_i:.2f} + {c_next:.2f}) / 3 = {c_i:.2f}',
+                'pendiente_inicial_detalle': f'b = {b_i:.2f}',
+                'pendiente_final_detalle': f'b + 2 * c * (x2 - x1) = {b_i:.2f} + 2 * {c_i:.2f} * ({x2 - x1:.2f}) = {pendiente_final:.2f}',
+                'derivada_inicial_detalle': derivada_inicial_eq,
+                'derivada_final_detalle': derivada_final_eq
             }
         }
 
         steps.append(step_detail)
 
     return steps
-
 
 def calculate_cubic_spline(x, y):
     x = np.array(x)
@@ -176,22 +196,34 @@ def calculate_cubic_spline(x, y):
     
     # Calcular coeficientes a, b, y d
     a = y[:-1]
-    b = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
+    b_coeff = (y[1:] - y[:-1]) / h - h * (2 * c[:-1] + c[1:]) / 3
     d = (c[1:] - c[:-1]) / (3 * h)
 
     steps = []
     for i in range(n):
         x1, x2 = x[i], x[i+1]
         y1, y2 = y[i], y[i+1]
+        h_i = h[i]
+        c_i = c[i]
+        c_next = c[i+1]
         
         a_i = a[i]
-        b_i = b[i]
-        c_i = c[i]
+        b_i = b_coeff[i]
         d_i = d[i] if i < n-1 else 0  # Manejar el último valor de d
         
+        # Calculo de pendientes
         pendiente_inicial = b_i
         pendiente_final = b_i + 2 * c_i * (x2 - x1) + 3 * d_i * (x2 - x1)**2
         
+        # Calculo de derivadas
+        derivada_inicial = pendiente_inicial
+        derivada_final = pendiente_final
+        
+        # Ecuaciones de las derivadas
+        derivada_inicial_eq = f"dy/dx = {b_i:.2f} + 2*{c_i:.2f}(x - {x1:.2f}) + 3*{d_i:.2f}(x - {x1:.2f})^2"
+        derivada_final_eq = f"dy/dx = {b_i:.2f} + 2*{c_i:.2f}(x - {x1:.2f}) + 3*{d_i:.2f}(x - {x1:.2f})^2 = {derivada_final:.2f}"
+        
+        # Detalles del cálculo paso a paso
         step_detail = {
             'segmento': i + 1,
             'a': a_i,
@@ -201,12 +233,18 @@ def calculate_cubic_spline(x, y):
             'ecuacion': f'y = {a_i:.2f} + {b_i:.2f}(x - {x1:.2f}) + {c_i:.2f}(x - {x1:.2f})^2 + {d_i:.2f}(x - {x1:.2f})^3',
             'pendiente_inicial': pendiente_inicial,
             'pendiente_final': pendiente_final,
+            'derivada_inicial': derivada_inicial_eq,
+            'derivada_final': derivada_final_eq,
             'detalles': {
                 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2,
-                'calculo_a': f'{a_i:.2f}',
-                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) = {b_i:.2f}',
-                'calculo_c': f'c[{i}] = {c_i:.2f}',
-                'calculo_d': f'(c[{i+1}] - c[{i}]) / (3 * h) = {d_i:.2f}'
+                'calculo_a': f'y1 = {y1:.2f}',
+                'calculo_b': f'({y2:.2f} - {y1:.2f}) / ({x2:.2f} - {x1:.2f}) - ({h_i:.2f} * (2 * {c_i:.2f} + {c_next:.2f}) / 3) = {b_i:.2f}',
+                'calculo_c': f'({y2:.2f} - {y1:.2f}) / {h_i:.2f} - {h_i:.2f} * (2 * {c_i:.2f} + {c_next:.2f}) / 3 = {c_i:.2f}',
+                'calculo_d': f'({c_next:.2f} - {c_i:.2f}) / (3 * {h_i:.2f}) = {d_i:.2f}',
+                'pendiente_inicial_detalle': f'b = {b_i:.2f}',
+                'pendiente_final_detalle': f'b + 2 * c * (x2 - x1) + 3 * d * (x2 - x1)^2 = {b_i:.2f} + 2 * {c_i:.2f} * ({x2 - x1:.2f}) + 3 * {d_i:.2f} * ({(x2 - x1):.2f})^2 = {pendiente_final:.2f}',
+                'derivada_inicial_detalle': derivada_inicial_eq,
+                'derivada_final_detalle': derivada_final_eq
             }
         }
 

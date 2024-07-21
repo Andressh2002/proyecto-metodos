@@ -34,11 +34,11 @@
     </script>
 
     <script type="text/template" id="listCuadratica-template">
-        {% include 'components/lists/listCuadratica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' %}
+        {% include 'components/lists/listCuadratica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' derivada_inicial='{{derivada_inicial}}' derivada_final='{{derivada_final}}' pendiente_inicial_detalle='{{pendiente_inicial_detalle}}' pendiente_final_detalle='{{pendiente_final_detalle}}' derivada_inicial_detalle='{{derivada_inicial_detalle}}' derivada_final_detalle='{{derivada_final_detalle}}' %}
     </script>
 
     <script type="text/template" id="listCubica-template">
-        {% include 'components/lists/listCubica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' d='{{ d }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' calculo_d='{{ calculo_d }}' %}
+        {% include 'components/lists/listCubica.html' with segmento='{{ segmento }}' pendiente_inicial='{{ pendiente_inicial }}' pendiente_final='{{ pendiente_final }}' a='{{ a }}' b='{{ b }}' c='{{ c }}' d='{{ d }}' ecuacion='{{ ecuacion }}' x1='{{ x1 }}' x2='{{ x2 }}' y1='{{ y1 }}' y2='{{ y2 }}' calculo_a='{{ calculo_a }}' calculo_b='{{ calculo_b }}' calculo_c='{{ calculo_c }}' calculo_d='{{ calculo_d }}' derivada_inicial='{{derivada_inicial}}' derivada_final='{{derivada_final}}' pendiente_inicial_detalle='{{pendiente_inicial_detalle}}' pendiente_final_detalle='{{pendiente_final_detalle}}' derivada_inicial_detalle='{{derivada_inicial_detalle}}' derivada_final_detalle='{{derivada_final_detalle}}' %}
     </script>
 
 {% endblock %}

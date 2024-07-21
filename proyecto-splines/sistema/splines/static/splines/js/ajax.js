@@ -95,9 +95,9 @@ function updateInterface(steps, points, spline) {
                         segmento: step.segmento,
                         pendiente_inicial: step.pendiente_inicial,
                         pendiente_final: step.pendiente_final,
-                        a: step.a.toString(),
-                        b: step.b.toString(),
-                        c: step.c.toString(),
+                        a: step.a.toFixed(2).toString(),
+                        b: step.b.toFixed(2).toString(),
+                        c: step.c.toFixed(2).toString(),
                         ecuacion: step.ecuacion,
                         x1: step.detalles.x1.toString(),
                         x2: step.detalles.x2.toString(),
@@ -105,7 +105,13 @@ function updateInterface(steps, points, spline) {
                         y2: step.detalles.y2.toString(),
                         calculo_a: step.detalles.calculo_a,
                         calculo_b: step.detalles.calculo_b,
-                        calculo_c: step.detalles.calculo_c
+                        calculo_c: step.detalles.calculo_c,
+                        derivada_inicial: step.derivada_inicial,
+                        derivada_final: step.derivada_final,
+                        pendiente_inicial_detalle: step.detalles.pendiente_inicial_detalle,
+                        pendiente_final_detalle: step.detalles.pendiente_final_detalle,
+                        derivada_inicial_detalle: step.detalles.derivada_inicial_detalle,
+                        derivada_final_detalle: step.detalles.derivada_final_detalle
                     });
 
                     newStep.innerHTML += listHtml;
@@ -136,10 +142,10 @@ function updateInterface(steps, points, spline) {
                         segmento: step.segmento,
                         pendiente_inicial: step.pendiente_inicial,
                         pendiente_final: step.pendiente_final,
-                        a: step.a.toString(),
-                        b: step.b.toString(),
-                        c: step.c.toString(),
-                        d: step.d.toString(),
+                        a: step.a.toFixed(2).toString(),
+                        b: step.b.toFixed(2).toString(),
+                        c: step.c.toFixed(2).toString(),
+                        d: step.d.toFixed(2).toString(),
                         ecuacion: step.ecuacion,
                         x1: step.detalles.x1.toString(),
                         x2: step.detalles.x2.toString(),
@@ -148,7 +154,13 @@ function updateInterface(steps, points, spline) {
                         calculo_a: step.detalles.calculo_a,
                         calculo_b: step.detalles.calculo_b,
                         calculo_c: step.detalles.calculo_c,
-                        calculo_d: step.detalles.calculo_d
+                        calculo_d: step.detalles.calculo_d,
+                        derivada_inicial: step.derivada_inicial,
+                        derivada_final: step.derivada_final,
+                        pendiente_inicial_detalle: step.detalles.pendiente_inicial_detalle,
+                        pendiente_final_detalle: step.detalles.pendiente_final_detalle,
+                        derivada_inicial_detalle: step.detalles.derivada_inicial_detalle,
+                        derivada_final_detalle: step.detalles.derivada_final_detalle
                     });
 
                     newStep.innerHTML += listHtml;
